@@ -94,6 +94,7 @@ class galera::status (
     server                  => '/usr/local/bin/clustercheck',
     port                    => $port,
     user                    => 'clustercheck',
+    group                   => 'clustercheck',
     flags                   => 'REUSE',
     log_on_success          => '',
     log_on_success_operator => '=',
