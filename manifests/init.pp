@@ -140,7 +140,6 @@ class galera(
   }
 
   if $configure_firewall {
-    include galera::firewall
     class { 'galera::firewall':
       source => unique(flatten([$galera_servers, $galera_clients]))
     }
