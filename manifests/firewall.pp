@@ -10,9 +10,7 @@ class galera::firewall (
   $source = undef,
 ) {
 
-  $galera_ports = [$galera::mysql_port, $galera::wsrep_group_comm_port, $galera::wsrep_state_transfer_port, $galera::wsrep_inc_state_transfer_port]
-  if $source {
-    $source.each |$ip| {
+  define galera::firewall::source_ip ( $ip = $title){
       firewall { "4567 galera accept tcp from ${ip}":
         before => Anchor['mysql::server::start'],
         proto  => 'tcp',
@@ -20,7 +18,11 @@ class galera::firewall (
         action => accept,
         source => $ip,
       }
-    }
+  }
+
+  $galera_ports = [$galera::mysql_port, $galera::wsrep_group_comm_port, $galera::wsrep_state_transfer_port, $galera::wsrep_inc_state_transfer_port]
+  if !empty($source) {
+    galera::firewall::source_ip { $source: }
   }
   else {
      firewall { '4567 galera accept tcp':
