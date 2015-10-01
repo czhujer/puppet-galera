@@ -43,6 +43,7 @@ class galera::status (
   $status_host      = 'localhost',
   $status_user      = 'clustercheck',
   $port             = 9200,
+  $port             = $galera::status_port,
   $available_when_donor    = 0,
   $available_when_readonly = -1,
 ) {
@@ -96,6 +97,7 @@ class galera::status (
     user                    => 'clustercheck',
     group                   => 'clustercheck',
     flags                   => 'REUSE',
+    service_type            => 'UNLISTED',
     log_on_success          => '',
     log_on_success_operator => '=',
     require                 => [ File['/usr/local/bin/clustercheck'], User['clustercheck'] ],

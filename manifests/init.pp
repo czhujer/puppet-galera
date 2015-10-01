@@ -7,6 +7,10 @@
 # [*status_password*]
 #  (required) The password of the status check user
 #
+# [*status_port*]
+#  (optional) Port for cluster check service
+#  Defaults to 9200
+#
 # [*galera_servers*]
 #   (optional) A list of IP addresses of the nodes in
 #   the galera cluster
@@ -127,6 +131,7 @@ class galera(
   $client_package_name              = undef,
   $package_ensure                   = 'installed',
   $status_password                  = undef,
+  $status_port                      = 9200,
 )
 {
   if $configure_repo {
