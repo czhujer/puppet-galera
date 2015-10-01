@@ -14,7 +14,7 @@ class galera::firewall (
       firewall { "4567 galera accept tcp from ${ip}":
         before => Anchor['mysql::server::start'],
         proto  => 'tcp',
-        dport   => $galera_ports,
+        dport   => $galera::firewall::galera_ports,
         action => accept,
         source => $ip,
       }
